@@ -1,0 +1,12 @@
+# docker-compose up -d
+version: '3'
+services:
+  html2pdf-web:
+    build: . # 使用当前目录的Dockerfile构建
+    container_name: html2pdf-web
+    ports:
+        - "10240:10240"
+    volumes:
+          - ./output:/output
+    restart: always
+

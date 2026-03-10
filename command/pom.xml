@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>command</artifactId>
+
+    <parent>
+        <groupId>cn.meowy</groupId>
+        <artifactId>html2pdf</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.meowy</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.32</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>cn.meowy.html2pdf.Soft</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptors>
+                        <descriptor>src/main/resources/lib.xml</descriptor>
+                    </descriptors>
+<!--                    <descriptorRefs>-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <name>html2pdf</name>
+                    <appVersion>1.0.0</appVersion>
+                    <vendor>cn.meowy</vendor>
+                    <mainClass>cn.meowy.html2pdf.Soft</mainClass>
+                    <mainJar>${project.build.finalName}.jar</mainJar>
+<!--                    <icon>src/main/resources/icon.ico</icon>-->
+                    <input>target/${project.build.finalName}-distribution/${project.build.finalName}</input>
+                    <type>DMG</type>
+                    <destination>target</destination>
+                    <winConsole>false</winConsole>
+                    <winDirChooser>true</winDirChooser>
+                    <winPerUserInstall>true</winPerUserInstall>
+                    <winShortcut>true</winShortcut>
+                    <winMenu>true</winMenu>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
