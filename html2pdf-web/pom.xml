@@ -8,6 +8,7 @@
         <version>${revision}</version>
     </parent>
     <artifactId>html2pdf-web</artifactId>
+    <version>${revision}</version>
     <name>html2pdf-web</name>
     <description>html2pdf-web</description>
     <properties>
@@ -29,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>cn.meowy</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>html2pdf-common</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>

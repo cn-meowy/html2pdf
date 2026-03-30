@@ -9,8 +9,8 @@
 	<version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
-        <module>command</module>
-        <module>common</module>
+        <module>html2pdf-command</module>
+        <module>html2pdf-common</module>
         <module>html2pdf-web</module>
     </modules>
 

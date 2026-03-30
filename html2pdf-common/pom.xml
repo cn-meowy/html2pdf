@@ -6,7 +6,8 @@
         <artifactId>html2pdf</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>common</artifactId>
+    <artifactId>html2pdf-common</artifactId>
+    <version>${revision}</version>
 
     <dependencies>
         <dependency>
