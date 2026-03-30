@@ -6,6 +6,7 @@
         <groupId>cn.meowy</groupId>
         <artifactId>html2pdf</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>html2pdf-web</artifactId>
     <version>${revision}</version>
