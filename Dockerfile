@@ -9,4 +9,4 @@ RUN mkdir -p /app && chown appuser:appuser /app
 USER appuser
 WORKDIR /app
 COPY ./html2pdf-web/target/html2pdf-web.jar /app
-CMD ["java", "-jar", "html2pdf-web.jar", "--html2pdf.executable.path=/app/browser/chrome-headless-shell-linux64/chrome-headless-shell"]
+CMD ["java", "-jar", "html2pdf-web.jar", "--html2pdf.executable.path=/app/browser/chrome-headless-shell-linux64/chrome-headless-shell", "--spring.profiles.active=prod"]
