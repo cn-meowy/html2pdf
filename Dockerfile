@@ -10,7 +10,7 @@ ADD https://storage.googleapis.com/chrome-for-testing-public/147.0.7720.0/linux6
 RUN unzip /app/browser/chrome-headless-shell-linux64.zip -d /app/browser/ && rm /app/browser/chrome-headless-shell-linux64.zip
 ## 安装中文字体库
 ADD fonts/HarmonyOS_Sans.zip /app/fonts/
-RUN unzip /app/fonts/HarmonyOS_Sans.zip -d /usr/local/share/fonts && rm /app/fonts/HarmonyOS_Sans.zip && fc-cache -fv
+RUN unzip -j /app/fonts/HarmonyOS_Sans.zip -d /usr/local/share/fonts && rm /app/fonts/HarmonyOS_Sans.zip && fc-cache -fv
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 RUN mkdir -p /app && chown appuser:appuser /app && chmod 775 /app
 USER appuser
