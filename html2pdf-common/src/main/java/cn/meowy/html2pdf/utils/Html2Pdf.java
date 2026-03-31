@@ -56,6 +56,7 @@ public class Html2Pdf {
                 throw new RuntimeException("不支持的输入类型");
             }
             log.debug("正在加载网页.....");
+            page.keyboard().press("End");
             page.waitForLoadState(LoadState.NETWORKIDLE);
             log.debug("网页加载完毕.....");
             Page.PdfOptions pdfOptions = new Page.PdfOptions()
