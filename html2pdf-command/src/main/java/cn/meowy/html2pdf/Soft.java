@@ -1,6 +1,7 @@
 package cn.meowy.html2pdf;
 
 import cn.meowy.html2pdf.utils.Html2Pdf;
+import com.microsoft.playwright.Page;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class Soft {
                     log.info("请输入PDF文件输出路径(按Q/q退出): ");
                     String output = getInput();
                     if (output != null && !output.isBlank()) {
-                        HTML2PDF.cov(input.startsWith("http") ? "R" : "L", input, output);
+                        HTML2PDF.cov(input.startsWith("http") ? "R" : "L", input, output, new Page.PdfOptions());
                     }
                 }
             } catch (Throwable e) {

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 转换工具
@@ -43,7 +44,7 @@ public class Html2Pdf {
         return INSTANCE;
     }
 
-    public byte[] cov(String inputType, String input, String output) {
+    public byte[] cov(String inputType, String input, String output, Page.PdfOptions pdfOptions) {
         try (Page page = CONTEXT.newPage()) {
             if ("L".equalsIgnoreCase(inputType)) {          // local 本地
                 page.navigate("file://" + input);
@@ -59,12 +60,8 @@ public class Html2Pdf {
             page.keyboard().press("End");
             page.waitForLoadState(LoadState.NETWORKIDLE);
             log.debug("网页加载完毕.....");
-            Page.PdfOptions pdfOptions = new Page.PdfOptions()
-                    .setPath(output == null || output.isBlank() ? null : Paths.get(output))
-                    .setPrintBackground(true)
-                    .setPreferCSSPageSize(true)
-                    .setScale(1.0)
-                    .setDisplayHeaderFooter(false);
+            pdfOptions = Objects.requireNonNullElseGet(pdfOptions, Page.PdfOptions::new);
+            pdfOptions.setPath(output == null || output.isBlank() ? null : Paths.get(output));
             log.debug("开始生成PDF[{}].....", output);
             // 生成PDF
             return page.pdf(pdfOptions);
