@@ -42,7 +42,7 @@ public class Command {
                     return;
                 }
                 Html2Pdf html2Pdf = Html2Pdf.create(executablePath);
-                html2Pdf.cov(inputHtml != null && inputHtml.startsWith("http") ? "R" : "L", inputHtml, outputPdf, new Page.PdfOptions());
+                html2Pdf.cov(inputHtml != null && inputHtml.startsWith("http") ? "R" : "L", inputHtml, outputPdf, new Page.PdfOptions(), false);
                 html2Pdf.close();
             }
         } catch (Throwable e) {

@@ -7,7 +7,7 @@ import com.microsoft.playwright.Page;
  *
  * @author Mr.Zou
  **/
-public record CovDto(String inputType, String input, String outputType, String output, Page.PdfOptions option) {
+public record CovDto(String inputType, String input, String outputType, String output, boolean screenshot, Page.PdfOptions option) {
 
 
 

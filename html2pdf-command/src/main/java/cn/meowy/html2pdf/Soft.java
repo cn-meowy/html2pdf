@@ -30,7 +30,7 @@ public class Soft {
                     log.info("请输入PDF文件输出路径(按Q/q退出): ");
                     String output = getInput();
                     if (output != null && !output.isBlank()) {
-                        HTML2PDF.cov(input.startsWith("http") ? "R" : "L", input, output, new Page.PdfOptions());
+                        HTML2PDF.cov(input.startsWith("http") ? "R" : "L", input, output, new Page.PdfOptions(), false);
                     }
                 }
             } catch (Throwable e) {

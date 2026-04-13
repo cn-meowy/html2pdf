@@ -29,7 +29,7 @@ public class Api {
     @PostMapping("/cov")
     public ResponseEntity<?> cov(@RequestBody CovDto request) {
         try {
-            byte[] cov = html2Pdf.cov(request.inputType(), request.input(), request.output(), request.option());
+            byte[] cov = html2Pdf.cov(request.inputType(), request.input(), request.output(), request.option(), request.screenshot());
             if ("stream".equalsIgnoreCase(request.outputType())) {
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + (request.output() != null && !request.output().isBlank() ? (request.output().endsWith(".pdf") ? request.output() : request.output() + ".pdf") : "file.pdf") + "\"")
