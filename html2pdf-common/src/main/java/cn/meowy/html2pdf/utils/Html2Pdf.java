@@ -77,7 +77,10 @@ public class Html2Pdf {
             } else if ("R".equalsIgnoreCase(inputType)) {   // remote 远程
                 page.navigate(input);
             } else if ("S".equalsIgnoreCase(inputType)) {   // string 字符串
-                page.setContent(input);
+                String htmlFile = TEMP_DIR + "/" + System.currentTimeMillis() + ".html";
+                tempFiles.add(htmlFile);
+                Files.writeString(Paths.get(htmlFile), input);
+                page.navigate("file://" + htmlFile);
             } else {
                 log.error("[{}]不支持的输入类型", inputType);
                 throw new RuntimeException("不支持的输入类型");
