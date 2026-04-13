@@ -26,6 +26,11 @@ public class Html2Pdf {
     private static Playwright PLAYWRIGHT;
     private static Browser BROWSER;
     private static BrowserContext CONTEXT;
+
+    public static String getTempDir() {
+        return TEMP_DIR;
+    }
+
     private static String TEMP_DIR;
 
     private Html2Pdf(String executablePath) {
@@ -42,7 +47,6 @@ public class Html2Pdf {
         options.setHeadless(true);
         BROWSER = PLAYWRIGHT.chromium().launch(options);
         CONTEXT = BROWSER.newContext(new Browser.NewContextOptions().setViewportSize(1920, 1080).setDeviceScaleFactor(3D));
-
     }
 
     public synchronized static Html2Pdf create(String executablePath) {
@@ -52,6 +56,7 @@ public class Html2Pdf {
             try {
                 html2pdf = File.createTempFile("html2pdf", ".html");
                 TEMP_DIR = html2pdf.getParent() + "/html2pdf";
+                log.debug("临时文件目录为: {}", TEMP_DIR);
             } catch (IOException e) {
                 log.error("获取临时目录失败", e);
                 throw new RuntimeException("获取临时目录失败");

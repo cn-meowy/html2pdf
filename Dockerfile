@@ -13,7 +13,9 @@ ADD fonts/HarmonyOS_Sans.zip /app/fonts/
 RUN unzip -oj /app/fonts/HarmonyOS_Sans.zip -d /usr/local/share/fonts && rm /app/fonts/HarmonyOS_Sans.zip && fc-cache -fv
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 RUN mkdir -p /app && chown appuser:appuser /app && chmod 775 /app
+## 添加静态资源
+ADD www/ /app/resources/
 USER appuser
 WORKDIR /app
 COPY ./html2pdf-web/target/html2pdf-web.jar /app
-CMD ["java", "-jar", "html2pdf-web.jar", "--html2pdf.executable.path=/app/browser/chrome-headless-shell-linux64/chrome-headless-shell", "--spring.profiles.active=dev"]
+CMD ["java", "-jar", "html2pdf-web.jar", "--html2pdf.executable.path=/app/browser/chrome-headless-shell-linux64/chrome-headless-shell", "--html2pdf.resource.path=/app/resources", "--spring.profiles.active=dev"]
