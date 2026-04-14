@@ -1,0 +1,4 @@
+browser/ linguist-documentation
+fonts/ linguist-documentation
+www/ linguist-documentation
+*.java linguist-language=java
