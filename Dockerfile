@@ -12,9 +12,9 @@ RUN unzip /app/browser/chrome-headless-shell-linux64.zip -d /app/browser/ && rm 
 ADD fonts/HarmonyOS_Sans.zip /app/fonts/
 RUN unzip -oj /app/fonts/HarmonyOS_Sans.zip -d /usr/local/share/fonts && rm /app/fonts/HarmonyOS_Sans.zip && fc-cache -fv
 RUN groupadd -r appuser && useradd -r -g appuser appuser
+ADD www/ /app/resources/
 RUN mkdir -p /app && chown -R appuser:appuser /app && chmod -R 775 /app
 ## 添加静态资源
-ADD www/ /app/resources/
 USER appuser
 WORKDIR /app
 COPY ./html2pdf-web/target/html2pdf-web.jar /app
