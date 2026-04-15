@@ -77,7 +77,9 @@ public class Api {
                 throw new RuntimeException("创建目录失败");
             }
             for (MultipartFile file : files) {
-                file.transferTo(Paths.get(targetPath + "/" + file.getOriginalFilename()));
+                String targetFilePath = targetPath + "/" + file.getOriginalFilename();
+                new File(targetFilePath).deleteOnExit();
+                file.transferTo(Paths.get(targetFilePath));
             }
             return ResponseEntity.ok(Map.of(
                     "code", 200,
