@@ -39,3 +39,10 @@ build/
 /.idea/
 /.mvn/
 /browser/**/*
+
+### Maven flatten ###
+.flattened-pom.xml
+
+### 日志 ###
+/logs/
+/plans/
