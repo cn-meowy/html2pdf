@@ -138,7 +138,7 @@ GET /api/getResource
 
 Docker 镜像中已内置配置：
 
-- Chrome 路径：`/app/browser/chrome-headless-shell/chrome-headless-shell`
+- Chrome 路径：`/opt/google/chrome/chrome`（Google Chrome 官方 .deb 安装，amd64 / arm64 通用）
 - 资源路径：`/app/resources`
 
 ## CI/CD

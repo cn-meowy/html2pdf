@@ -3,27 +3,24 @@
 FROM azul/zulu-openjdk:17
 EXPOSE 10240
 
-ARG CHROME_VERSION=147.0.7720.0
+## buildx 自动注入的目标架构（amd64 / arm64）
 ARG TARGETARCH
 
-## 安装解压工具 + Chrome 依赖
+## 安装基础工具（curl 用于下载，unzip 用于解压字体）
+## 说明：Chrome for Testing 不提供 linux-arm64 的 chrome-headless-shell 构建，
+##       故改用 Google 官方 .deb 源（amd64 / arm64 均提供），二进制统一位于
+##       /opt/google/chrome/chrome，与架构解耦。
 RUN apt update \
-    && apt install -y unzip curl \
-    && apt install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libgtk-3-0 libgbm1 libasound2 \
+    && apt install -y curl unzip \
+    && case "$TARGETARCH" in \
+         amd64) DEB_ARCH=amd64 ;; \
+         arm64) DEB_ARCH=arm64 ;; \
+         *) echo "不支持的架构: $TARGETARCH" >&2 && exit 1 ;; \
+       esac \
+    && curl -fsSL "https://dl.google.com/linux/direct/google-chrome-stable_current_${DEB_ARCH}.deb" -o /tmp/chrome.deb \
+    && apt install -y /tmp/chrome.deb \
+    && rm /tmp/chrome.deb \
     && rm -rf /var/lib/apt/lists/*
-
-## 按架构下载 Chrome-headless-shell 并创建统一软链接
-RUN case "$TARGETARCH" in \
-      amd64) CHROME_ARCH=linux64;     CHROME_FILE=chrome-headless-shell-linux64 ;; \
-      arm64) CHROME_ARCH=linux-arm64; CHROME_FILE=chrome-headless-shell-linux-arm64 ;; \
-      *) echo "不支持的架构: $TARGETARCH" >&2 && exit 1 ;; \
-    esac \
-    && ADD_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/${CHROME_ARCH}/${CHROME_FILE}.zip" \
-    && curl -fsSL "$ADD_URL" -o /tmp/chrome.zip \
-    && mkdir -p /app/browser \
-    && unzip /tmp/chrome.zip -d /app/browser/ \
-    && rm /tmp/chrome.zip \
-    && ln -s "/app/browser/${CHROME_FILE}" /app/browser/chrome-headless-shell
 
 ## 安装中文字体库
 ADD fonts/HarmonyOS_Sans.zip /app/fonts/
@@ -37,8 +34,8 @@ USER appuser
 WORKDIR /app
 COPY ./html2pdf-web/target/html2pdf-web.jar /app
 
-## 通过软链接统一可执行路径，与架构解耦
+## Google Chrome .deb 安装后二进制统一位于 /opt/google/chrome/chrome，与架构解耦
 CMD ["java", "-jar", "html2pdf-web.jar", \
-     "--html2pdf.executable.path=/app/browser/chrome-headless-shell/chrome-headless-shell", \
+     "--html2pdf.executable.path=/opt/google/chrome/chrome", \
      "--html2pdf.resource.path=/app/resources", \
      "--spring.profiles.active=dev"]
