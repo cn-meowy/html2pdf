@@ -27,10 +27,10 @@
 
 ```bash
 # ghcr.io
-docker run -d -p 10240:10240 --name html2pdf ghcr.io/<owner>/html2pdf-web:latest
+docker run -d -p 10240:10240 --name html2pdf ghcr.io/cn-meowy/html2pdf-web:latest
 
 # Docker Hub
-docker run -d -p 10240:10240 --name html2pdf <docker-username>/html2pdf-web:latest
+docker run -d -p 10240:10240 --name html2pdf xiaosheng078/html2pdf-web:latest
 ```
 
 服务启动后访问 `http://localhost:10240/api`。
